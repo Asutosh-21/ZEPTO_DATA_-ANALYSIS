@@ -86,7 +86,7 @@ Each step simulates what a junior analyst would do in a real e-commerce company 
 
 ### 📥 4. Import the Dataset into PostgreSQL
 
-- Import the `.csv` file using:
+- Import the `.csv` file using:  Link:-https://www.kaggle.com/datasets/merlinscat/zepto-products-dataset
   - The `\copy` command in PostgreSQL CLI or
   - The "Import" feature in pgAdmin
 - Ensure UTF-8 encoding is selected to avoid character issues.
