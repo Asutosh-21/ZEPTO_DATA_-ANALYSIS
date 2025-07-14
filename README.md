@@ -1,6 +1,7 @@
 # 🛒 Zepto E-commerce SQL Data Analyst Portfolio Project
 
-![Zepto Banner](https://assets.zepto.delivery/images/zepto-banner.png)
+![Zepto Banner](zepto-banner.png)
+
 
 This is a complete, realistic **data analyst portfolio project** based on an **e-commerce inventory dataset** inspired by [Zepto](https://www.zeptonow.com/) — India’s fastest-growing quick-commerce platform.
 
@@ -8,17 +9,8 @@ This beginner-friendly SQL project simulates a real-world scenario where a junio
 
 ---
 
-## 🎯 Who This Project Is For
+## 🛠 Tech Stack
 
-- 📊 Aspiring data analysts who want to build a **job-ready portfolio**
-- 🧠 SQL learners looking to solve **real-world e-commerce problems**
-- 💼 Entry-level professionals preparing for interviews in **retail, product, or inventory analytics**
-
----
-
----
-
-🛠 Tech Stack
 🐘 PostgreSQL (pgAdmin or CLI)
 
 💻 SQL (DDL, DML, aggregate functions, regex)
@@ -53,64 +45,126 @@ The dataset was scraped from **Zepto's product catalog** and mimics real e-comme
 
 ---
 
+
 ## 🔧 Project Workflow
 
-### 1. 🔨 Table Creation
-```sql
-CREATE TABLE products (
-    product_id SERIAL PRIMARY KEY,
-    name TEXT,
-    category TEXT,
-    mrp TEXT,
-    offer_price TEXT,
-    discount TEXT,
-    product_highlights TEXT,
-    product_information TEXT
-);
-2. 📥 Data Import
-Use pgAdmin → "Import/Export" tool
-Or use SQL:
 
-sql
-Copy
-Edit
-\copy products(name, category, mrp, offer_price, discount, product_highlights, product_information)
-FROM 'zepto_sales.csv' WITH (FORMAT csv, HEADER true, DELIMITER ',', QUOTE '"', ENCODING 'UTF8');
-3. 🧼 Data Cleaning
-✅ Converted mrp and offer_price from text (₹999) to NUMERIC
 
-✅ Parsed discount from '10% Off' → 10.00
+This section outlines the complete step-by-step workflow for building the **Zepto E-commerce SQL Data Analyst Portfolio Project**, using real-world catalog data in PostgreSQL and analyzing it through SQL queries in VS Code.
 
-✅ Extracted brand from product_highlights using regex
+Each step simulates what a junior analyst would do in a real e-commerce company to extract business insights from raw product data.
 
-✅ Extracted country_of_origin from product_information
+---
 
-sql
-Copy
-Edit
--- Example: Clean MRP
-ALTER TABLE products ADD COLUMN mrp_rs NUMERIC;
-UPDATE products SET mrp_rs = REPLACE(mrp, '₹', '')::NUMERIC WHERE mrp ~ '₹[0-9]';
-4. 🔍 Exploratory Data Analysis (EDA)
-Counted total products
+### 🧩 1. Environment Setup
 
-Checked null values
+- Install **PostgreSQL** as the SQL engine for querying and storage.
+- Use **VS Code** as the main development environment.
+- Install the **PostgreSQL extension** in VS Code to connect and run queries directly inside the editor.
+- Optional: Use **pgAdmin** for GUI-based management.
 
-Found unique categories
+---
 
-Analyzed availability & out-of-stock flags
+### 📁 2. Create a New Project Directory
 
-Detected product duplicates by name
+- Create a folder named `zepto-sql-project` to store all project files.
+- Inside this folder, include:
+  - The original CSV dataset
+  - SQL scripts for table schema, data cleaning, and insights
+  - A `README.md` for documentation
+  - An `assets/` folder for images or banner logos (optional)
 
-5. 📊 Business Analysis with SQL
-8 Real Business Problems Solved:
+---
 
-#	Question	Insight
-1️⃣	What are the top categories by product volume?	Optimize category focus
-2️⃣	Which products have the highest discounts?	Best value offers
-3️⃣	Are there any invalid prices?	Checked MRP < Offer
-4️⃣	What’s the average discount per category?	Promo trends
-5️⃣	Which brands dominate each category?	Vendor planning
-6️⃣	What’s the country of origin for products?	Compliance
-7️⃣	What products have no discount?	Pricing policy review
-8️⃣	What is the total inventory weight by category?	Warehouse planning
+### 🛠️ 3. PostgreSQL Database & Table Setup
+
+- Create a new database (e.g., `zepto_project_db`) in PostgreSQL.
+- Define the structure of the `products` table based on the dataset columns.
+- Use appropriate data types and add a primary key.
+
+---
+
+### 📥 4. Import the Dataset into PostgreSQL
+
+- Import the `.csv` file using:
+  - The `\copy` command in PostgreSQL CLI or
+  - The "Import" feature in pgAdmin
+- Ensure UTF-8 encoding is selected to avoid character issues.
+- Confirm the data loads correctly with the correct number of rows.
+
+---
+
+### 🧹 5. Data Cleaning
+
+- Clean price columns by removing currency symbols (`₹`) and converting them to numeric.
+- Extract numeric values from textual discount fields like `'15% Off'`.
+- Identify and handle null or zero values in key columns like MRP and offer price.
+- Extract embedded fields such as `Brand` or `Country of Origin` from `product_highlights` and `product_information` columns using text parsing (e.g., regex).
+
+---
+
+### 🔍 6. Exploratory Data Analysis (EDA)
+
+- Count the total number of records and identify nulls or inconsistencies.
+- Analyze unique categories and subcategories in the catalog.
+- Review stock availability (e.g., in-stock vs out-of-stock).
+- Identify duplicate product entries due to SKU variants.
+- Examine the spread of product weights, prices, and discounts.
+
+---
+
+### 📊 7. Business-Focused SQL Analysis
+
+Answer realistic, e-commerce-driven questions using SQL:
+
+- Which product categories have the most listings?
+- Which products offer the highest discounts?
+- Are there any pricing inconsistencies (e.g., offer price > MRP)?
+- What are the top brands per category?
+- Which products have no discount?
+- What’s the average discount per category?
+- What is the total inventory weight per category?
+- What is the potential revenue if all stock sells at discounted price?
+
+Each query is designed to mimic real requests from a marketing, category, or operations team.
+
+---
+
+### 📦 8. Generate Key Insights
+
+From the analysis above, summarize and document business insights such as:
+
+- ✅ Products with invalid or missing pricing
+- ✅ Categories offering the best customer value
+- ✅ Inventory-heavy categories
+- ✅ Top-performing brands in each category
+- ✅ Discount effectiveness
+
+These insights can be used for internal reporting, strategy, and team decision-making.
+
+---
+
+### 🧾 9. Document the Project
+
+- Write a detailed `README.md` (this file!) to explain:
+  - The goal of the project
+  - The business context
+  - The tools used
+  - The process and findings
+- Include screenshots or sample outputs if possible.
+- Add a banner image (optional) using a public or local path.
+
+---
+
+### 🚀 10. Publish to GitHub
+
+- Upload all project files to a GitHub repository:
+  - CSV dataset (or a link to the source)
+  - SQL files (`schema.sql`, `cleaning.sql`, `analysis.sql`)
+  - Final `README.md`
+- Make it public and showcase it as a portfolio-ready project on LinkedIn or during interviews.
+
+---
+
+📌 This end-to-end workflow is designed to help beginner data analysts simulate real industry tasks using only SQL and open-source tools — ideal for job preparation, interview discussion, or resume/LinkedIn portfolio work.
+
